@@ -30,7 +30,7 @@ export class SlotView {
   private readonly textures = new Map<SymbolId, Texture>()
   private readonly reels: ReelState[] = []
   private readonly highlight = new Graphics()
-  private elapsed = 0
+  private spinStartedAt = 0
   private resolve: (() => void) | null = null
 
   async mount(host: HTMLElement, strips: SymbolId[][]): Promise<void> {
@@ -75,12 +75,12 @@ export class SlotView {
     })
 
     this.app.stage.addChild(this.highlight)
-    this.app.ticker.add((ticker) => this.update(ticker.deltaMS))
+    this.app.ticker.add(() => this.update(performance.now()))
   }
 
   spinTo(stops: number[]): Promise<void> {
     this.highlight.clear()
-    this.elapsed = 0
+    this.spinStartedAt = performance.now()
     const delays = stopDelays(this.reels.length, 900, 300)
     this.reels.forEach((r, i) => {
       const n = r.strip.length
@@ -110,13 +110,13 @@ export class SlotView {
     }
   }
 
-  private update(deltaMs: number): void {
+  private update(nowMs: number): void {
     if (!this.reels.some((r) => r.spinning)) return
-    this.elapsed += deltaMs
+    const elapsed = nowMs - this.spinStartedAt
     for (const r of this.reels) {
       if (!r.spinning) continue
-      r.position = r.from + reelOffset(this.elapsed, r.stopAt, r.to - r.from)
-      if (this.elapsed >= r.stopAt) {
+      r.position = r.from + reelOffset(elapsed, r.stopAt, r.to - r.from)
+      if (elapsed >= r.stopAt) {
         r.position = r.to
         r.spinning = false
       }
