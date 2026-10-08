@@ -1,0 +1,98 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  background: #0f1226;
+  color: #f1f3f5;
+}
+
+body {
+  margin: 0;
+}
+
+.shell {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.muted {
+  color: #adb5bd;
+  text-align: center;
+  margin: 0.25rem 0;
+}
+
+#stage canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  width: 100%;
+}
+
+.hud span {
+  display: block;
+  font-size: 0.75rem;
+  color: #adb5bd;
+}
+
+.bets {
+  display: flex;
+  gap: 0.25rem;
+}
+
+button {
+  font: inherit;
+  border: 0;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.8rem;
+  background: #343a63;
+  color: inherit;
+  cursor: pointer;
+}
+
+button.active {
+  background: #ffd43b;
+  color: #1b1f3b;
+}
+
+#spin {
+  background: #e03131;
+  font-weight: 700;
+  padding: 0.75rem 1.25rem;
+}
+
+#spin:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paytable {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+  font-size: 0.85rem;
+}
+
+.paytable div {
+  display: flex;
+  justify-content: space-between;
+  background: #1b1f3b;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+}
